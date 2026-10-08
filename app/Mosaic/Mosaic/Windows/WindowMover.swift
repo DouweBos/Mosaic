@@ -12,6 +12,10 @@ final class WindowMover {
     /// Snaps the focused window; if it's already in that spot, carries it on to the next display over.
     func snapFocusedWindow(to region: Region) {
         guard let window = WindowAccess.focusedWindow() else { return NSSound.beep() }
+        step(window, to: region)
+    }
+
+    func step(_ window: AXWindow, to region: Region) {
         guard !WindowAccess.isIgnored(window), let frame = window.frame else { return }
         let displays = DisplayCatalog.current()
         guard let index = Geometry.bestMatch(for: frame, among: displays.map(\.visibleFrame)) else { return }
@@ -39,8 +43,12 @@ final class WindowMover {
 
     /// Moves the focused window to the next or previous display, keeping its relative spot.
     func moveFocusedWindow(displayOffset offset: Int) {
-        guard let window = WindowAccess.focusedWindow(), !WindowAccess.isIgnored(window), let frame = window.frame
-        else { return NSSound.beep() }
+        guard let window = WindowAccess.focusedWindow() else { return NSSound.beep() }
+        move(window, displayOffset: offset)
+    }
+
+    func move(_ window: AXWindow, displayOffset offset: Int) {
+        guard !WindowAccess.isIgnored(window), let frame = window.frame else { return NSSound.beep() }
         let displays = DisplayCatalog.current()
         guard displays.count > 1, let index = Geometry.bestMatch(for: frame, among: displays.map(\.visibleFrame))
         else { return NSSound.beep() }
@@ -53,8 +61,12 @@ final class WindowMover {
     }
 
     func restoreFocusedWindow() {
-        guard let window = WindowAccess.focusedWindow(), let frame = originalFrames.removeValue(forKey: window.identity)
-        else { return NSSound.beep() }
+        guard let window = WindowAccess.focusedWindow() else { return NSSound.beep() }
+        restore(window)
+    }
+
+    func restore(_ window: AXWindow) {
+        guard let frame = originalFrames.removeValue(forKey: window.identity) else { return NSSound.beep() }
         window.setFrame(frame)
     }
 

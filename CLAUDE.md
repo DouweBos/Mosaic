@@ -27,7 +27,7 @@ xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build -dest
 swiftlint lint --quiet
 ```
 
-Dev launch flags: `-MosaicStorage <path>` keeps arrangements somewhere other than Application Support (use `/tmp/mosaic-dev` when testing), `-MosaicOpenSettings general|arrangements|shortcuts|ignored` opens Settings on that tab.
+Dev launch flags: `-MosaicStorage <path>` keeps arrangements somewhere other than Application Support (use `/tmp/mosaic-dev` when testing), `-MosaicOpenSettings general|arrangements|shortcuts|ignored` opens Settings on that tab. Debug builds also take `-MosaicSelfTest <bundle id>`: it moves that app's frontmost window through every region, display walk, capture, apply and launch placement on the real displays and writes a report to `/tmp/mosaic-selftest.txt`. Point it at a throwaway window (a TextEdit document), never one in use.
 
 The app icon and menu bar glyph are generated: edit `scripts/render-icon.swift` and run `swift scripts/render-icon.swift`.
 

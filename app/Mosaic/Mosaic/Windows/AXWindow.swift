@@ -20,6 +20,7 @@ struct AXWindow {
     }
 
     var title: String? { attribute(kAXTitleAttribute) as? String }
+    var documentURL: URL? { (attribute(kAXDocumentAttribute) as? String).flatMap(URL.init(string:)) }
     var isMinimized: Bool { attribute(kAXMinimizedAttribute) as? Bool ?? false }
     var isStandard: Bool { attribute(kAXSubroleAttribute) as? String == kAXStandardWindowSubrole }
 

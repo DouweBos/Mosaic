@@ -49,6 +49,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             settingsWindow.show(tab: .general)
             waitForTrust()
         }
+        #if DEBUG
+        if let bundleID = UserDefaults.standard.string(forKey: "MosaicSelfTest") {
+            Task { await SelfTest(mover: mover, engine: engine).run(bundleID: bundleID) }
+        }
+        #endif
         if let tab = UserDefaults.standard.string(forKey: "MosaicOpenSettings") {
             settingsWindow.show(tab: SettingsTab(rawValue: tab) ?? .arrangements)
         }
