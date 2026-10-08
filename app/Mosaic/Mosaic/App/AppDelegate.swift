@@ -49,8 +49,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             settingsWindow.show(tab: .general)
             waitForTrust()
         }
-        if UserDefaults.standard.bool(forKey: "MosaicOpenSettings") {
-            settingsWindow.show(tab: .arrangements)
+        if let tab = UserDefaults.standard.string(forKey: "MosaicOpenSettings") {
+            settingsWindow.show(tab: SettingsTab(rawValue: tab) ?? .arrangements)
         }
     }
 

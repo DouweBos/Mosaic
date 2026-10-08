@@ -27,7 +27,7 @@ xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build -dest
 swiftlint lint --quiet
 ```
 
-Dev launch flags: `-MosaicStorage <path>` keeps arrangements somewhere other than Application Support (use `/tmp/mosaic-dev` when testing), `-MosaicOpenSettings YES` opens the arrangement editor on launch.
+Dev launch flags: `-MosaicStorage <path>` keeps arrangements somewhere other than Application Support (use `/tmp/mosaic-dev` when testing), `-MosaicOpenSettings general|arrangements|shortcuts|ignored` opens Settings on that tab.
 
 The app icon and menu bar glyph are generated: edit `scripts/render-icon.swift` and run `swift scripts/render-icon.swift`.
 

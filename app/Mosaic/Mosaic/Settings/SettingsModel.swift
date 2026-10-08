@@ -6,7 +6,7 @@
 import AppKit
 import Observation
 
-enum SettingsTab: Hashable {
+enum SettingsTab: String, Hashable {
     case general
     case arrangements
     case shortcuts

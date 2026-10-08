@@ -1,7 +1,7 @@
 // Settings/SettingsView.swift
 // Mosaic
 //
-// The Settings window's tabs. Each has a fixed size: grouped forms scroll, so they report no height of their own.
+// The Settings window's tabs. The window has a fixed size per tab: grouped forms scroll, so they report no height.
 
 import KeyboardShortcuts
 import SwiftUI
@@ -13,22 +13,29 @@ struct SettingsView: View {
         TabView(selection: $model.tab) {
             Tab("General", systemImage: "gearshape", value: .general) {
                 GeneralSettings(model: model)
-                    .frame(width: 520, height: 440)
             }
             Tab("Arrangements", systemImage: "square.grid.2x2", value: .arrangements) {
                 ArrangementsSettings(model: model)
-                    .frame(width: 860, height: 620)
             }
             Tab("Shortcuts", systemImage: "keyboard", value: .shortcuts) {
                 ShortcutSettings()
-                    .frame(width: 520, height: 620)
             }
             Tab("Ignored Apps", systemImage: "eye.slash", value: .ignored) {
                 IgnoredAppsSettings()
-                    .frame(width: 520, height: 440)
             }
         }
         .scenePadding()
+        // Sized per tab so each fills the window; the hosting controller resizes the window to match.
+        .frame(width: size.width, height: size.height)
+    }
+
+    private var size: CGSize {
+        switch model.tab {
+        case .general: CGSize(width: 560, height: 480)
+        case .arrangements: CGSize(width: 900, height: 680)
+        case .shortcuts: CGSize(width: 560, height: 680)
+        case .ignored: CGSize(width: 560, height: 480)
+        }
     }
 }
 
