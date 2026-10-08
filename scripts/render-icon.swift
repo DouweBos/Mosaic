@@ -114,7 +114,7 @@ print("Wrote \(bundle.path)")
 
 // MARK: - Menu bar
 
-/// Black on transparent, cropped to the glyph and fitted to the 18pt menu bar height.
+/// Black on transparent, cropped to the glyph; a little smaller than the menu bar height so it sits light.
 func writeMenuBarGlyph(height: Int, to url: URL) throws {
     let path = glyph(weight: 1.6)
     let box = path.boundingBoxOfPath
@@ -137,8 +137,8 @@ func writeMenuBarGlyph(height: Int, to url: URL) throws {
 
 let imageset = root.appendingPathComponent("app/Mosaic/Mosaic/Assets.xcassets/MenuBarIcon.imageset")
 try FileManager.default.createDirectory(at: imageset, withIntermediateDirectories: true)
-try writeMenuBarGlyph(height: 16, to: imageset.appendingPathComponent("menubar.png"))
-try writeMenuBarGlyph(height: 32, to: imageset.appendingPathComponent("menubar@2x.png"))
+try writeMenuBarGlyph(height: 13, to: imageset.appendingPathComponent("menubar.png"))
+try writeMenuBarGlyph(height: 26, to: imageset.appendingPathComponent("menubar@2x.png"))
 let imagesetJSON: [String: Any] = [
     "images": [
         ["filename": "menubar.png", "idiom": "universal", "scale": "1x"],
