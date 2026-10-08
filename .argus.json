@@ -1,0 +1,51 @@
+{
+  "setup": {
+    "copy": [
+      {
+        "path": ".claude",
+        "exclude": [
+          "worktrees/**",
+          "projects/**/worktrees/**",
+          "scheduled_tasks.lock"
+        ]
+      }
+    ],
+    "symlink": [],
+    "commands": []
+  },
+  "terminals": [
+    {
+      "name": "Shell",
+      "dir": "."
+    }
+  ],
+  "run": [
+    {
+      "title": "Build & Run Mosaic",
+      "command": "xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build -destination 'platform=macOS,arch=arm64' build && (pkill -x Mosaic; open -n build/Build/Products/Debug/Mosaic.app --args -MosaicStorage /tmp/mosaic-dev)",
+      "cwd": "app/Mosaic",
+      "restartOnRerun": true
+    },
+    {
+      "title": "Unit Tests",
+      "command": "xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build -destination 'platform=macOS,arch=arm64' test -only-testing:MosaicTests",
+      "cwd": "app/Mosaic",
+      "restartOnRerun": true
+    }
+  ],
+  "workspace_env": [],
+  "platforms": [],
+  "tools": {
+    "disabled": [
+      "device-recording",
+      "device-inspector",
+      "device-control",
+      "device-debug"
+    ]
+  },
+  "agent_prompt": "Mosaic is a native macOS menu bar app (no simulators or web runtime). Build and test with xcodebuild from app/Mosaic using the worktree-local -derivedDataPath build. Run dev builds with -MosaicStorage /tmp/mosaic-dev so your saved arrangements are left alone.",
+  "protected_branches": [
+    "main",
+    "master"
+  ]
+}
