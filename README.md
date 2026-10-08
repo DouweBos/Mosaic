@@ -6,6 +6,7 @@ A free, open source window manager for macOS that also remembers arrangements: w
 
 - **Snap by dragging**: drag a window to a screen edge and it snaps. Sides give halves, corners quarters, the top maximizes and the bottom edge gives thirds. An outline shows where it will land.
 - **Shortcuts for every layout**: halves, quarters, thirds, two thirds, maximize, almost maximize, center, plus next and previous display and restore. All changeable in Settings.
+- **Walk across displays**: press a shortcut again on a window that is already there and it moves on to the next display, mirrored. Right half, then the next display's left half, half a display at a time.
 - **Arrangements**: save your current layout in one click, or build one in the editor on a picture of your displays. Each app goes on a display, in a region or an exact spot.
 - **Apply on connect**: when the displays an arrangement was made for are connected (your dock at the desk, for example), Mosaic puts every app in its place.
 - **Apps opened later**: an app that wasn't running when the arrangement applied is put in place as soon as it opens.

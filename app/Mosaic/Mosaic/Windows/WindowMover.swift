@@ -9,9 +9,20 @@ final class WindowMover {
     /// Frames from before Mosaic first moved each window, for Restore.
     private var originalFrames: [Int: CGRect] = [:]
 
+    /// Snaps the focused window; if it's already in that spot, carries it on to the next display over.
     func snapFocusedWindow(to region: Region) {
         guard let window = WindowAccess.focusedWindow() else { return NSSound.beep() }
-        snap(window, to: region)
+        guard !WindowAccess.isIgnored(window), let frame = window.frame else { return }
+        let displays = DisplayCatalog.current()
+        guard let index = Geometry.bestMatch(for: frame, among: displays.map(\.visibleFrame)) else { return }
+        let display = displays[index]
+        let target = Geometry.frame(for: .region(region), in: display.visibleFrame, gap: Preferences.gap, current: frame)
+        if RegionStep.isAt(frame, target), let (direction, next) = RegionStep.continuation(of: region),
+           let neighbor = RegionStep.neighbor(of: display.frame, toward: direction, among: displays.map(\.frame)) {
+            snap(window, to: next, on: displays[neighbor])
+        } else {
+            snap(window, to: region, on: display)
+        }
     }
 
     func snap(_ window: AXWindow, to region: Region, on display: Display? = nil) {
