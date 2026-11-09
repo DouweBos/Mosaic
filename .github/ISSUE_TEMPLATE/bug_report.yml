@@ -1,0 +1,48 @@
+name: Bug report
+description: Something in Mosaic doesn't work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Drag a window to …
+        2. Press …
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Mosaic version
+      description: Mosaic menu › About Mosaic, or the commit you built from.
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+    validations:
+      required: true
+  - type: textarea
+    id: displays
+    attributes:
+      label: Displays
+      description: How many displays, their resolutions, and how they're arranged.
+  - type: input
+    id: app
+    attributes:
+      label: Affected app
+      description: The app whose window misbehaves, if it's specific to one.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Remove anything private first.
