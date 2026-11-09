@@ -1,6 +1,6 @@
 # Mosaic
 
-A free, open source window manager for macOS with saved arrangements that apply when their displays connect. A menu bar app; its setup follows [Grove](https://github.com/DouweBos/Grove).
+A free, open source window manager for macOS with saved arrangements that apply when their displays connect. A menu bar app.
 
 ## Development Guidelines
 
