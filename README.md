@@ -32,23 +32,33 @@ Mosaic moves other apps' windows through the Accessibility API, so it needs acce
 ## Requirements
 
 - macOS 15 or later
-- Xcode 27 to build
+- Accessibility permission (see above)
 
-## Building
+To build from source you also need Xcode 27 or later. No paid Apple Developer account is needed: Mosaic uses no private frameworks and no entitlements, just the public Accessibility API.
+
+## Download
+
+There are no prebuilt releases yet. Build it from source as described below.
+
+## Building from source
 
 ```sh
-cd app/Mosaic
-xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build -destination 'platform=macOS,arch=arm64' build
+git clone https://github.com/DouweBos/Mosaic.git
+cd Mosaic/app/Mosaic
+xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build \
+  -destination 'platform=macOS,arch=arm64' build \
+  CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM=
 open build/Build/Products/Debug/Mosaic.app
 ```
+
+The last line of the build command signs ad-hoc, so you don't need an Apple ID. To sign with your own team instead, pass `DEVELOPMENT_TEAM=<your team ID>` or pick your team in Xcode under Signing & Capabilities. The only dependency, [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts), is fetched by Swift Package Manager on the first build.
 
 Tests:
 
 ```sh
-xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build -destination 'platform=macOS,arch=arm64' test -only-testing:MosaicTests
+xcodebuild -project Mosaic.xcodeproj -scheme Mosaic -derivedDataPath build \
+  -destination 'platform=macOS,arch=arm64' test -only-testing:MosaicTests
 ```
-
-To build with your own Apple ID, change the development team in the project's Signing & Capabilities.
 
 ## Project structure
 
@@ -67,6 +77,12 @@ scripts/          App icon renderer
 
 Arrangements are saved in `~/Library/Application Support/Mosaic`.
 
+## Contributing
+
+Bug reports, ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for building, signing, tests and commit conventions, and the [Code of Conduct](CODE_OF_CONDUCT.md). Report security issues privately, as described in [SECURITY.md](SECURITY.md).
+
 ## License
 
-MIT
+Mosaic is released under the [MIT License](LICENSE). Copyright (c) 2026 Douwe Bos.
+
+Made by [Douwe Bos](https://houwert.dev).
